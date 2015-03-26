@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 app.set('trust proxy', 1);
-app.use(session({secret: 'ssshhhhh'}));
+app.use(session({ secret: 'kst', cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true }));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('./public'));
 

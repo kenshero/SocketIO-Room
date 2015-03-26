@@ -13,6 +13,9 @@ var server = app.listen(3000,function(){
 });
 
 var io = require('socket.io').listen(server);
+io.set('transports', ['xhr-polling']);
+io.set('polling duration', 10);
+
 var people = {};  
 
 app.get('/',function(req,res){

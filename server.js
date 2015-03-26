@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('./public'));
 
 var server = app.listen(process.env.PORT || 5000 ,function(){
-	console.log("connected localhost:3000");
+	console.log("connected localhost:5000");
 });
 
 var io = require('socket.io').listen(server);
@@ -53,6 +53,10 @@ io.on("connection",function(socket){
 
     });
 
+     socket.on('chat message', function(msg){
+	    io.emit('chat message', msg);
+	  });
+
 });
 
 app.get('/admin', function(req, res){
@@ -81,24 +85,3 @@ app.get('/logout', function(req, res){
 	res.redirect('./');
 		
 });
-
-
-
-// socket.on("connection", function (client) {  
-//     client.on("join", function(name){
-//         people[client.id] = name;
-//         client.emit("update", "You have connected to the server.");
-//         socket.sockets.emit("update", name + " has joined the server.")
-//         socket.sockets.emit("update-people", people);
-//     });
-
-//     client.on("send", function(msg){
-//         socket.sockets.emit("chat", people[client.id], msg);
-//     });
-
-//     client.on("disconnect", function(){
-//         socket.sockets.emit("update", people[client.id] + " has left the server.");
-//         delete people[client.id];
-//         socket.sockets.emit("update-people", people);
-//     });
-// });

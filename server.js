@@ -8,13 +8,11 @@ app.use(session({ secret: 'kst', cookie: { maxAge: 60000 }, resave: true, saveUn
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('./public'));
 
-var server = app.listen(3000,function(){
+var server = app.listen(process.env.PORT || 5000 ,function(){
 	console.log("connected localhost:3000");
 });
 
 var io = require('socket.io').listen(server);
-io.set('transports', ['xhr-polling']);
-io.set('polling duration', 10);
 
 var people = {};  
 
